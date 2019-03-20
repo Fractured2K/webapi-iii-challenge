@@ -2,8 +2,12 @@ const router = require("express").Router();
 
 const User = require("../data/helpers/userDb");
 
+// error checking middleware
+const usersMiddleware = require("../middleware/users");
+const notEmpty = usersMiddleware.notEmpty;
+
 // Create user
-router.post("/", async (req, res) => {
+router.post("/", notEmpty, async (req, res) => {
 	try {
 		const user = req.body;
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 
@@ -10,6 +11,7 @@ const server = express();
 
 // middelware
 server.use(express.json());
+server.use(bodyParser.json());
 server.use(cors());
 server.use(helmet());
 
