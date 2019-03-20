@@ -71,4 +71,7 @@ router.put("/:id", checkEmptyUser, async (req, res) => {
 	}
 });
 
+// Delete user
+router.delete("/:id", checkEmptyUser, async (req, res) => {});
+
 module.exports = router;
