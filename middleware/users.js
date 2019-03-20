@@ -1,5 +1,5 @@
 module.exports = {
-	createUser: (req, res, next) => {
+	checkEmptyUser: (req, res, next) => {
 		const { name } = req.body;
 
 		if (!name)

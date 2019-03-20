@@ -4,11 +4,11 @@ const User = require("../data/helpers/userDb");
 
 // error checking middleware
 const usersMiddleware = require("../middleware/users");
-const createUser = usersMiddleware.createUser;
+const checkEmptyUser = usersMiddleware.checkEmptyUser;
 const getUser = usersMiddleware.getUser;
 
 // Create user
-router.post("/", createUser, async (req, res) => {
+router.post("/", checkEmptyUser, async (req, res) => {
 	try {
 		const user = req.body;
 
@@ -52,7 +52,7 @@ router.post("/:id", getUser, async (req, res) => {
 });
 
 // Update user
-router.put("/:id", async (req, res) => {
+router.put("/:id", checkEmptyUser, async (req, res) => {
 	try {
 		const { id } = req.params;
 
