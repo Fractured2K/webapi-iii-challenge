@@ -75,6 +75,13 @@ router.put("/:id", checkUser, async (req, res) => {
 router.delete("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
+		const user = User.getById(id);
+
+		// check to see if user exist
+		if (!user)
+			return res
+				.status(404)
+				.json({ message: "Sorry, that user doesn't exist" });
 
 		// Get user posts
 		const userPosts = await User.getUserPosts(id);
@@ -85,16 +92,9 @@ router.delete("/:id", async (req, res) => {
 		});
 
 		// remove user
-		const user = await User.remove(id);
-
-		if (!user)
-			return res
-				.status(404)
-				.json({ message: "Sorry, that user doesn't exist" });
-
-		return res.status(200).json(user);
+		const deletedUser = await User.remove(id);
+		return res.status(200).json(deletedUser);
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			message: "Sorry, there was an error deleting that user"
 		});

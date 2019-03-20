@@ -21,14 +21,14 @@ router.post("/", checkPost, async (req, res) => {
 });
 
 // Get all posts
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
 	try {
-		const posts = Post.get();
+		const posts = await Post.get();
 
 		if (!posts)
 			return res.status(404).json({ message: "Sorry, no posts found" });
 
-		return res.status(200).json(post);
+		return res.status(200).json(posts);
 	} catch (err) {
 		res.status(500).json({
 			message: "Sorry, there was a problem retrieving posts"
