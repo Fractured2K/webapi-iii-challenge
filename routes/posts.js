@@ -77,4 +77,7 @@ router.put("/:id", checkPost, async (req, res) => {
 	}
 });
 
+// Delete post
+route.delete("/:id", async (req, res) => {});
+
 module.exports = router;
