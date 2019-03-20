@@ -57,6 +57,24 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update post
-router.put("/:id", async (req, res) => {});
+router.put("/:id", checkPost, async (req, res) => {
+	try {
+		const { id } = req.params;
+		const post = req.body;
+
+		const updatedPost = await Post.update(id, post);
+
+		if (!updatedPost)
+			return res
+				.status(400)
+				.json({ message: "Sorry, that post doesn't exist" });
+
+		return res.status(200).json(updatedPost);
+	} catch (err) {
+		res.status(500).json({
+			message: "Sorry, there was an error trying to update that post"
+		});
+	}
+});
 
 module.exports = router;
