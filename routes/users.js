@@ -2,6 +2,9 @@ const router = require("express").Router();
 
 const User = require("../data/helpers/userDb");
 
+// Create user
+router.post("/", async (req, res) => {});
+
 // Get users
 router.get("/", async (req, res) => {
 	try {
