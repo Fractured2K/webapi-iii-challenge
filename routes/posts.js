@@ -36,4 +36,7 @@ router.get("/", async (req, res) => {
 	}
 });
 
+// Get post by id
+router.get("/:id", async (req, res) => {});
+
 module.exports = router;
