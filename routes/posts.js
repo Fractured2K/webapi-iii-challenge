@@ -20,4 +20,7 @@ router.post("/", checkPost, async (req, res) => {
 	}
 });
 
+// Get all posts
+router.post("/", async (req, res) => {});
+
 module.exports = router;
