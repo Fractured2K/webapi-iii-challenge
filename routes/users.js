@@ -3,7 +3,7 @@ const router = require("express").Router();
 const User = require("../data/helpers/userDb");
 const Post = require("../data/helpers/postDb");
 
-// error checking middleware
+// user middleware
 const usersMiddleware = require("../middleware/users");
 const checkUser = usersMiddleware.checkUser;
 

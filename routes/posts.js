@@ -2,8 +2,12 @@ const router = require("express").Router();
 
 const Post = require("../data/helpers/postDb");
 
+// post middleware
+const postMiddleware = require("../middleware/posts");
+const checkPost = postMiddleware.checkPost;
+
 // Create post
-router.post("/", async (req, res) => {
+router.post("/", checkPost, async (req, res) => {
 	try {
 		const post = req.body;
 
