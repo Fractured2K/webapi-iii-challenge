@@ -52,7 +52,35 @@ router.post("/:id", async (req, res) => {
 });
 
 // Get posts by user
-router.get("/", async (req, res) => {});
+router.get("/:id/posts", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		// get user
+		const user = User.getById(id);
+
+		// check to see if user exist
+		if (!user)
+			return res
+				.status(404)
+				.json({ message: "Sorry, that user doesn't exist" });
+
+		// get user posts
+		const userPosts = await User.getUserPosts(id);
+
+		// check to see if user has posts
+		if (!userPosts)
+			return res.status(200).json({
+				message: "Sorry, that user doesn't have any posts"
+			});
+
+		return res.status(200).json(userPosts);
+	} catch (err) {
+		res.status(500).json({
+			message: "Sorry, there was a probel retrieving that users posts"
+		});
+	}
+});
 
 // Update user
 router.put("/:id", checkUser, async (req, res) => {
