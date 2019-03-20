@@ -72,6 +72,23 @@ router.put("/:id", checkEmptyUser, async (req, res) => {
 });
 
 // Delete user
-router.delete("/:id", checkEmptyUser, async (req, res) => {});
+router.delete("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const user = await User.remove(id);
+
+		if (!user)
+			return res
+				.status(404)
+				.json({ message: "Sorry, that user doesn't exist" });
+
+		return res.status(200).json(user);
+	} catch (err) {
+		res.status(500).json({
+			message: "Sorry, there was an error deleting that user"
+		});
+	}
+});
 
 module.exports = router;
