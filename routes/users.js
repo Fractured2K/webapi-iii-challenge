@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const User = require("../data/helpers/userDb");
+const Post = require("../data/helpers/postDb");
 
 // error checking middleware
 const usersMiddleware = require("../middleware/users");
@@ -76,6 +77,15 @@ router.delete("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 
+		// Get user posts
+		const userPosts = await User.getUserPosts(id);
+
+		// Delete each post from user (if you dont you get a foreign key error)
+		userPosts.forEach(async post => {
+			await Post.remove(post.id);
+		});
+
+		// remove user
 		const user = await User.remove(id);
 
 		if (!user)
@@ -85,6 +95,7 @@ router.delete("/:id", async (req, res) => {
 
 		return res.status(200).json(user);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			message: "Sorry, there was an error deleting that user"
 		});
