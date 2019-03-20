@@ -4,8 +4,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 // endpoints
-const userRoutes = require("./routes/users");
-const postRoutes = require("./routes/posts");
+const userController = require("./controllers/users");
+const postContoller = require("./controllers/posts");
 
 const server = express();
 
@@ -15,9 +15,9 @@ server.use(bodyParser.json());
 server.use(cors());
 server.use(helmet());
 
-// route handling
-server.use("/api/users", userRoutes);
-server.use("/api/posts", postRoutes);
+// route handlers
+server.use("/api/users", userController);
+server.use("/api/posts", postContoller);
 
 server.listen(3001, () => {
 	console.log(`Server now running on http://localhost:3001`);
