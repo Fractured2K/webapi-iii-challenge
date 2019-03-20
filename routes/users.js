@@ -46,12 +46,29 @@ router.post("/:id", getUser, async (req, res) => {
 		return res.status(200).json(user);
 	} catch (err) {
 		res.status(500).json({
-			message: "Sorry, but there was an error retrieving that user"
+			message: "Sorry, there was an error retrieving that user"
 		});
 	}
 });
 
 // Update user
-router.put("/:id", async (req, res) => {});
+router.put("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const updatedUser = await User.update(id, req.body);
+
+		if (!updatedUser)
+			return res.status(404).json({
+				message: "Sorry, but that user doesn't exist"
+			});
+
+		return res.status(200).json({ updatedUser });
+	} catch (err) {
+		res.status(500).json({
+			message: "Sorry, there was an error updating that user"
+		});
+	}
+});
 
 module.exports = router;
