@@ -4,10 +4,11 @@ const User = require("../data/helpers/userDb");
 
 // error checking middleware
 const usersMiddleware = require("../middleware/users");
-const notEmpty = usersMiddleware.notEmpty;
+const createUser = usersMiddleware.createUser;
+const getUser = usersMiddleware.getUser;
 
 // Create user
-router.post("/", notEmpty, async (req, res) => {
+router.post("/", createUser, async (req, res) => {
 	try {
 		const user = req.body;
 
@@ -31,6 +32,23 @@ router.get("/", async (req, res) => {
 });
 
 // Get users by id
-router.get("/:id", async (req, res) => {});
+router.post("/:id", getUser, async (req, res) => {
+	try {
+		const { id } = req.body;
+
+		const user = await User.getById(id);
+
+		if (!user)
+			return res
+				.status(404)
+				.json({ message: "Sorry, but that user doesn't exist" });
+
+		return res.status(200).json(user);
+	} catch (err) {
+		res.status(500).json({
+			message: "Sorry, but there was an error retrieving that user"
+		});
+	}
+});
 
 module.exports = router;
