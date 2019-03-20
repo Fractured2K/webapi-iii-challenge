@@ -6,10 +6,6 @@ const cors = require("cors");
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 
-// error handling middleware
-const userMiddleware = require("./middleware/users");
-const postMiddleware = require("./middleware/posts");
-
 const server = express();
 
 // middelware
