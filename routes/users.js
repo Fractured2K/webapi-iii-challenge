@@ -51,6 +51,9 @@ router.post("/:id", async (req, res) => {
 	}
 });
 
+// Get posts by user
+router.get("/", async (req, res) => {});
+
 // Update user
 router.put("/:id", checkUser, async (req, res) => {
 	try {
